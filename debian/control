@@ -1,0 +1,13 @@
+Source: shorten
+Section: non-free
+Priority: optional
+Maintainer: Tony Robinson <ajr@softsound.com>
+Standards-Version: 2.1.2.2
+
+Package: shorten
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Compression for waveform files (e.g. audio)
+ Shorten provides compression for waveform files, such as RIFF WAVE (.wav).
+ Both lossless and lossy compression is supported at about 2:1 compression
+ in the lossless case and up to 5:1 compression in the lossy case.

@@ -1,0 +1,54 @@
+#!/bin/sh -ex
+
+if [ $HOME != c:/ ]; then
+  PATH=.:$PATH
+else
+  PATH=".;/bin"
+fi
+
+shorten -x mvs_wav.shn tmp.wav
+shorten -v 2 -t wav	tmp.wav - | cmp - mvs_wav.shn
+shorten -a2 -t s16	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -a1024 -t s16x 	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -b1024 -t u16	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -b 4   -t u16x	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -m 0   -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -m 32  -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -v 0   -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -v 1   -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -v 2   -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -p1    -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -p16   -t s16hl	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -p16 -v2 -ts16hl tmp.wav -| shorten -x | cmp - tmp.wav
+shorten -tulaw		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -talaw		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -ts8		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -tu8		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -ts16		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -tu16		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -tu16x		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -ts16hl		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -tu16hl		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -ts16lh		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -tu16lh		tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -c2 -tulaw	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -c2 -talaw	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -a340 -c16	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -c2 -p4 -tu16 -b5 tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -v2 -t ulaw 	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -v2 -t alaw 	tmp.wav - | shorten -x | cmp - tmp.wav
+shorten -q3 tmp.wav tmp_q3.shn
+shorten -x tmp_q3.shn - | shorten     | cmp - tmp_q3.shn
+shorten -x tmp_q3.shn - | shorten -q3 | cmp - tmp_q3.shn
+rm tmp_q3.shn
+shorten -r3 tmp.wav tmp_r3.shn
+rm tmp_r3.shn
+
+if [ $HOME != c:/ ]; then
+  shorten tmp.wav
+  shorten -x tmp.wav.shn
+fi
+
+rm tmp.wav
+
+exit 0

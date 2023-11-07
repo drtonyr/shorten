@@ -1,0 +1,51 @@
+Building shorten
+================
+
+There is no configuration file for this package, just type make to get a
+single executable called "shorten".  The default C compiler is set to
+cc with optimisation -O.  Please choose as you like - for example:
+
+	make CC=gcc CFLAGS="-O3 -funroll-loops"
+
+Testing shorten
+===============
+
+A quick test may be performed with:
+
+	make test
+
+Installing shorten
+==================
+
+For a standard system:
+
+	make install
+
+will place shorten in /usr/local/bin and shorten.1 in /usr/local/man/man1.
+
+The make variables prefix and maxext can be set for non-standard
+environments, for example:
+
+	make prefix=$HOME maxext=l
+
+Other documentation
+===================
+
+A more readable version of the UNIX man page is contained in shorten.man.
+
+A technical report on shorten is included as tr156.tex and tr156.ps.
+
+Current bugs
+============
+
+There are no known problems with this code.
+
+The MSDOS version lacks the automatic generation of filenames, this is
+not a bug a `feature' due to the 8.3 naming convention of MSDOS.  If you
+know of a good workaround please tell me.
+
+If you have any problems, please tell me and I'll do my best to fix them.
+
+
+Tony Robinson
+ajr@softsound.com

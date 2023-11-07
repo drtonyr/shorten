@@ -1,0 +1,40 @@
+#!/bin/sh -ex
+
+VERSION=2
+BUGFIX_RELEASE=`egrep BUGFIX_RELEASE shorten.h | sed s'/^.*\"\(.*\)\"$/\1/'`
+
+NAME=shorten-$VERSION.$BUGFIX_RELEASE
+DOSDIR=short$VERSION${BUGFIX_RELEASE}
+
+if [ -x /usr/bin/todos ] ; then
+  TODOS=/usr/bin/todos
+else
+  TODOS=unix2dos
+fi
+
+mkdir ../$DOSDIR
+
+for name in * ; do
+  if [ -f $name ] ; then
+    echo $name
+    $TODOS < $name > ../$DOSDIR/$name
+    touch -r $name ../$DOSDIR/$name
+  fi
+done
+
+for name in mvs_wav.shn ; do
+  cp -pr $name ../$DOSDIR
+done
+
+cd ..
+
+rm -f $DOSDIR.zip
+zip -9 -r $DOSDIR.zip $DOSDIR
+
+rm -rf $DOSDIR
+
+tar cvf $NAME.tar $NAME
+gzip -9 $NAME.tar
+
+
+exit 0
